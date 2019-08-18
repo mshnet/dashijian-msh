@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="css/iconfont.css">
     <link rel="stylesheet" href="css/main.css">
     <script src="js/jquery-1.12.4.min.js"></script>
+    <!-- 导入分页插件 -->
+    <script src="./js/jquery.twbsPagination.min.js"></script>
 </head>
 
 <body>
@@ -30,9 +32,9 @@
                             <option>爱旅行</option>
                         </select>
                         <select id="selStatus" name="" class="form-control input-sm">
-                            <option>所有状态</option>
-                            <option value="drafted">草稿</option>
-                            <option value="published">已发布</option>
+                            <option value="">所有状态</option>
+                            <option value="草稿">草稿</option>
+                            <option value="已发布">已发布</option>
                         </select>
                         <button id="btnSearch" class="btn btn-default btn-sm">筛选</button>
                     </form>
@@ -58,7 +60,7 @@
 
 
                     <tr>
-                        
+
                         <td>王积千造统最头</td>
                         <td>杰克</td>
                         <td>奇趣事</td>
@@ -77,7 +79,7 @@
 
 
                     <tr>
-                     
+
                         <td>级电使正回</td>
                         <td>肉丝</td>
                         <td>爱旅行</td>
@@ -96,7 +98,7 @@
 
 
                     <tr>
-                       
+
                         <td>近难领管年算</td>
                         <td>杰克</td>
                         <td>会生活</td>
@@ -115,7 +117,7 @@
 
 
                     <tr>
-                       
+
                         <td>龙大实究</td>
                         <td>杰克</td>
                         <td>未分类</td>
@@ -134,7 +136,7 @@
 
 
                     <tr>
-                      
+
                         <td>算性得走来拉</td>
                         <td>肉丝</td>
                         <td>奇趣事</td>
@@ -153,7 +155,7 @@
 
 
                     <tr>
-                      
+
                         <td>几平会出气</td>
                         <td>管理员</td>
                         <td>奇趣事</td>
@@ -172,7 +174,7 @@
 
 
                     <tr>
-                      
+
                         <td>世团先证型角</td>
                         <td>杰克</td>
                         <td>奇趣事</td>
@@ -191,7 +193,7 @@
 
 
                     <tr>
-                      
+
                         <td>构更反步五</td>
                         <td>肉丝</td>
                         <td>奇趣事</td>
@@ -210,7 +212,7 @@
 
 
                     <tr>
-                       
+
                         <td>组方些</td>
                         <td>肉丝</td>
                         <td>会生活</td>
@@ -225,11 +227,7 @@
                             <a href="javascript:deleteTr( 996 );" class="btn btn-danger btn-xs">删除</a>
                         </td>
                     </tr>
-
-
-
                     <tr>
-                      
                         <td>日做发光成</td>
                         <td>管理员</td>
                         <td>爱旅行</td>
@@ -250,28 +248,153 @@
             </table>
 
             <div class="row text-center">
-            <ul class="pagination pagination-sm">
-                <li class="page-item first disabled"><a href="#" class="page-link">首页</a></li>
-                <li class="page-item prev disabled"><a href="#" class="page-link">上一页</a></li>
-                <li class="page-item active"><a href="#" class="page-link">1</a></li>
-                <li class="page-item"><a href="#" class="page-link">2</a></li>
-                <li class="page-item"><a href="#" class="page-link">3</a></li>
-                <li class="page-item"><a href="#" class="page-link">4</a></li>
-                <li class="page-item"><a href="#" class="page-link">5</a></li>
-                <li class="page-item"><a href="#" class="page-link">6</a></li>
-                <li class="page-item"><a href="#" class="page-link">7</a></li>
-                <li class="page-item next"><a href="#" class="page-link">下一页</a></li>
-                <li class="page-item last"><a href="#" class="page-link">尾页</a></li>
-            </ul>
-        </div>
+                <ul class="pagination pagination-sm">
+                    <li class="page-item first disabled"><a href="#" class="page-link">首页</a></li>
+                    <li class="page-item prev disabled"><a href="#" class="page-link">上一页</a></li>
+                    <li class="page-item active"><a href="#" class="page-link">1</a></li>
+                    <li class="page-item"><a href="#" class="page-link">2</a></li>
+                    <li class="page-item"><a href="#" class="page-link">3</a></li>
+                    <li class="page-item"><a href="#" class="page-link">4</a></li>
+                    <li class="page-item"><a href="#" class="page-link">5</a></li>
+                    <li class="page-item"><a href="#" class="page-link">6</a></li>
+                    <li class="page-item"><a href="#" class="page-link">7</a></li>
+                    <li class="page-item next"><a href="#" class="page-link">下一页</a></li>
+                    <li class="page-item last"><a href="#" class="page-link">尾页</a></li>
+                </ul>
+            </div>
 
         </div>
     </div>
 
     <script>
         // 设置左侧菜单
-        $('#release_btn').click(function(){
-            window.parent.setMenu(1,1);
+        $('#release_btn').click(function () {
+            window.parent.setMenu(1, 1);
+        })
+    </script>
+    <script src="./js/template-web.js"></script>
+    <!-- 文章分类模板 -->
+    <script id="temp_cate" type="text/html">
+        {{each data v}}
+           <option value = "">所有分类</option>
+           <option value = "{{v.id}}">{{v.name}}</option>
+        {{/each}}
+
+    </script>
+    <!-- 文章列表模板 -->
+    <script id="temp_list" type="text/html">
+        {{each data.data v}}
+            <tr>
+                <td>{{v.title}}</td>
+                <td>{{v.author}}</td>
+                <td>{{v.category}}</td>
+                <td class="text-center">{{v.date}}</td>
+                <td class="text-center">{{v.state}}</td>
+                <td class="text-center">
+                    <a href="post-edit.html?id=1000" btn-id = "{{v.id}}" class="btn btn-default btn-xs">编辑</a>
+                    <a href="javascript:deleteTr( 1000 );" btn-id = "{{v.id}}" class="btn btn-danger btn-xs">删除</a>
+                </td>
+            </tr>
+        {{/each}}
+    </script>
+    <script>
+        $(function () {
+            // 文章显示函数
+            function getData(myPage, cateType, cateState) {
+                $.ajax({
+                    type: 'get',
+                    url: 'http://localhost:8080/admin/article/query',
+                    data: {
+                        page: myPage,
+                        state: cateState,
+                        page: myPage,
+                        perpage: 10
+                    },
+                    success: function (backData) {
+                        console.log(backData);
+                        var resHtml = template('temp_list', backData);
+                        $('tbody').html(resHtml);
+
+                        //  根据发送ajax请求,获取到的总页数,来重新绘制页码条
+                        var totalPages = backData.data.totalPages;
+                        // 判断,如果发送ajax请求获取的总页数,和刚才的总页数不想等等,这个时候就要重绘页码条
+                        if (totalPages != myTotalpage || isTrue == true) {
+                            myTotalpage = totalPages;// 把发送ajax请求的总页数,赋值给myTotalpage;
+
+                            // 获取当前页面
+                            var currentPage = $pagination.twbsPagination('getCurrentPage');
+                            $pagination.twbsPagination('destroy');
+                            $pagination.twbsPagination($.extend({}, defaultOpts, {
+                                startPage: 1,// 始终以第一页作为开始也
+                                totalPages: totalPages
+                            }))
+                            // 进来执行了之后,记得把isTrue改成false
+                            isTrue = false;
+                        }
+                    }
+                })
+            }
+
+            // 声明两个变量,用来记录当前筛选的 分类名和分类值
+            var cateType;
+            var cateState;
+
+            // 声明一个变量,用来记录总页数,默认一开始是10
+
+            var myTotalpage = 10;
+
+            // 声明一个变量,isTrue,用来记录点击筛选按钮
+            var isTrue = false;
+
+            // 需求: 一进到文章列表页面,就要显示真实存在的文章
+            // 思路: 一进入到页面,就触发搜索按钮点击事件
+            // 思路: 一进入到页面,自己发送ajax请求,获取数据,渲染
+
+            //需求: 一进到文章列表页面,就要显示真实存在的文章.
+            getData(1)
+
+            //需求: 一进到页面,显示所有的文章分类.
+            //1.一进到页面发送ajax获取所有的文章分类.
+            $.ajax({
+                url: 'http://localhost:8080/admin/category/list',
+                success: function (backData) {
+                    console.log(backData);
+                    if (backData.code == 200) {
+                        resHtml = template('temp_cate', backData)
+                        $('#selCategory').html(resHtml)
+                    }
+                }
+            })
+
+            // 需求:分页
+            var $pagination = $('.pagination');
+            var defaultOpts = {
+                first:'首页',
+                last:'末页',
+                next:'下一页',
+                prev:'上一页',
+                totalPages: myTotalpage, //总页数
+                visiblePages: 10, //可见页数
+                onPageClick: function (event, page) {
+                    getData(page, cateType, cateState)
+                }
+            };
+            $pagination.twbsPagination(defaultOpts);
+
+
+
+            //需求: 点击筛选按钮,筛选出符合条件的文章,渲染到页面.
+            //1.给筛选按钮设置点击事件.
+            $('#btnSearch').on('click', function (e) {
+                e.preventDefault();
+
+                isTrue = true;
+                cateType = $('#selCategory').val().trim();
+                cateState = $('#selStatus').val().trim();
+
+                getData(1, cateType, cateState)
+
+            })
         })
     </script>
 
